@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 load_dotenv()  # load all the variables from the env file
 bot = discord.Bot()
 
-API_URL = "http://192.168.1.151:5000/"
+API_URL = os.getenv("HOST")
 
 
 @bot.event

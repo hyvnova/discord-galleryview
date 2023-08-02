@@ -16,15 +16,18 @@ Routes:
 
 from typing import List, Tuple
 from flask import Flask, request, jsonify, url_for, render_template
-import json
+import json, os
 from flask_fontawesome import FontAwesome
 from discord_api import get_channel_images, get_channel_name
+from dotenv import load_dotenv
 
+
+load_dotenv()
 
 app = Flask(__name__)
 fa = FontAwesome(app)
 
-HOST = "http://192.168.1.151:5000"
+HOST =  os.getenv("HOST")
 
 
 @app.route("/")
