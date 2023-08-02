@@ -7,6 +7,9 @@
     <title>GalleryView - {{channel_name}} </title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/pico.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/output.css')}}">
+    <link rel="icon" href="{{url_for('static', filename='src/gallery.ico')}}">
+
+
     {{ fontawesome_html() }}
 </head>
 
@@ -40,7 +43,7 @@
                 <div class="w-1/2 p-1 md:p-2">
                     <img alt="gallery"
                         class="block h-full w-full rounded-lg object-cover object-center hover:scale-105 transition-all duration-300 ease-in-out"
-                        src="{{url}}" alt="{{name}}" loading="lazy" name="{{name}}"/>
+                        src="{{url}}" alt="{{name}}" loading="lazy" name="{{name}}" />
                 </div>
                 {% endfor %}
             </div>
@@ -52,7 +55,7 @@
     <!-- Modal Container -->
     <div id="Modal" class="hidden fixed inset-0 p-2 bg-black bg-opacity-50 flex items-center justify-center">
         <div class="h-[92%] w-auto mx-auto">
-            <img id="modalImage"  class="rounded-lg max-h-full h-fit w-fit" alt="modal-image" src="" />
+            <img id="modalImage" class="rounded-lg max-h-full h-fit w-fit" alt="modal-image" src="" />
             <!-- Text for image name (should be on top center)-->
             <div class="absolute top-0 left-0 right-0 flex justify-center items-center z-10">
                 <p id="modalImageName" class="text-white text-1xl"></p>

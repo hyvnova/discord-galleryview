@@ -197,4 +197,4 @@ def create_gallery_scrapping():
     return create_gallery_page(channel_id, channel_name, images)
 
 
-app.run(host="0.0.0.0", debug=False)
+app.run(host="0.0.0.0", debug=True)
