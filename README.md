@@ -22,7 +22,7 @@ You could use [GalleryView](https://discordgalleryview.ezsnova.repl.co/) to get 
 And have some extra functionality as:
 ![GalleryView Zoom](github_images/gallery_zoom.png)
 
-You can check the gallery used for the example [here](https://discord.com/channels/@me/1037385503747608646/1136351944315768872)
+You can check the gallery used in this example [here](https://discordgalleryview.ezsnova.repl.co/gallery/967180550022496336)
 
 ## Get GalleryView
 
