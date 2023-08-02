@@ -22,6 +22,8 @@ You could use [GalleryView](https://discordgalleryview.ezsnova.repl.co/) to get 
 And have some extra functionality as:
 ![GalleryView Zoom](github_images/gallery_zoom.png)
 
+You can check the gallery used for the example [here](https://discord.com/channels/@me/1037385503747608646/1136351944315768872)
+
 ## Get GalleryView
 
 1. [Discord bot](https://discord.com/api/oauth2/authorize?client_id=1136039549894676490&permissions=124928&scope=bot)
