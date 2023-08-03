@@ -35,34 +35,6 @@ def index():
     return render_template("index.html")
 
 
-test_images = [
-    (
-        "https://media.discordapp.net/attachments/1133572126415261857/1134252439399317575/image.png?width=295&height=451",
-        "Image 1",
-    ),
-    (
-        "https://media.discordapp.net/attachments/1133572126415261857/1134252371602579607/image.png?width=257&height=451",
-        "Long ass goofy name",
-    ),
-    (
-        "https://media.discordapp.net/attachments/1133572126415261857/1134212506534027465/image.png?width=200&height=451",
-        "s",
-    ),
-]
-
-
-# TEST ROUTE
-@app.route("/test")
-def test():
-    # return index template
-    return render_template(
-        "gallery.html",
-        channel_name="test name",
-        channel_id="123",
-        images=test_images,
-    )
-
-
 @app.route("/gallery/<gallery_id>")
 def gallery(gallery_id):
     # get data
@@ -77,15 +49,13 @@ def gallery(gallery_id):
     gallery_data = data[gallery_id]
 
     images = gallery_data["images"]
-    chunk_size = 5
-    images_set = [images[i : i + chunk_size] for i in range(0, len(images), chunk_size)]
 
     # return index template
     return render_template(
         "gallery.html",
         channel_name=gallery_data["channel_name"],
         channel_id=gallery_id,
-        images_set=images_set,
+        images_json=json.dumps(images),
     )
 
 

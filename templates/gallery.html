@@ -9,86 +9,124 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/output.css')}}">
     <link rel="icon" href="{{url_for('static', filename='src/gallery.ico')}}">
 
-
     {{ fontawesome_html() }}
+
+
+    <images-json class="hidden">{{images_json}}</images-json>
 </head>
 
 <body data-theme="dark">
-    <style>
-        /* Center the modal content */
-        #modalContent {
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
+    <script src="{{url_for('static', filename='js/utils.js')}}"></script>
+    <script src="{{url_for('static', filename='js/modal.js')}}"></script>
+    <script src="{{url_for('static', filename='js/grid_mode.js')}}"></script>
+    <script src="{{url_for('static', filename='js/gallery.js')}}"></script>
 
-        /* Blur the background when the modal is open */
-        body.modal-open {
-            overflow: hidden;
-        }
+    <!-- Gallery mode selction modal -->
+    <div id="gallery_mode_modal"
+        class="hidden fixed inset-0 p-2 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="h-auto w-10/12 mx-auto justify-center items-center p-1">
+            <div class="bg-gray-800 rounded-lg shadow-lg px-4 py-8 w-full">
 
-        #imageModal {
-            z-index: 9999;
-        }
-    </style>
-
-    <!-- Gallery Grid -->
-    <div class="container mx-auto p-2 lg:px-2 lg:pt-4">
-        <div class="-m-1 flex flex-wrap md:-m-2">
-
-            {% for images in images_set %}
-            <div class="flex w-1/2 flex-wrap">
-
-                {% for url, name in images %}
-                <div class="w-1/2 p-1 md:p-2">
-                    <img alt="gallery"
-                        class="block h-full w-full rounded-lg object-cover object-center hover:scale-105 transition-all duration-300 ease-in-out"
-                        src="{{url}}" alt="{{name}}" loading="lazy" name="{{name}}" />
+                <div class="flex flex-col justify-center items-center">
+                    <h2 class="text-2xl font-bold text-white m-1">Select a mode</h2>
+                    <p class="text-lg text-gray-400">Select a display mode to view the gallery</p>
                 </div>
-                {% endfor %}
+
+                <!-- Grid mode option -->
+                <div class="flex flex-row justify-center items-center mt-4 w-full">
+                    <button id="grid_mode_option"
+                        onclick="switch_modal('gallery_mode_modal', 'grid_customization_modal');make_grid()"
+                        class="rounded-lg shadow-md bg-gray-800 text-white mt-3 mx-2 py-5 px-2  max-w-md">
+                        Grid
+                        <i class="fas fa-th-large ml-2"></i>
+                    </button>
+                </div>
+
             </div>
-            {% endfor %}
         </div>
+    </div>
+
+
+    <!-- Grid customization modal -->
+    <div id="grid_customization_modal"
+        class="hidden fixed inset-0 p-2 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="h-auto min-h-[40%] w-10/12 mx-auto justify-center items-center p-1">
+            <div class="bg-gray-800 rounded-lg shadow-lg px-4 py-8 w-full">
+
+                <!-- Option customization (rows) -->
+                <div class="flex flex-col justify-center items-center">
+                    <h2 class="text-2xl font-bold text-white m-1">Customize Grid</h2>
+                    <p class="text-lg text-gray-400">Select the number of columns and rows</p>
+                </div>
+                <div class="flex flex-row justify-center items-center mt-4 w-full">
+                    <div class="flex flex-row justify-center items-center">
+                        <label for="grid_columns" class="text-white">Columns: </label>
+                        <input id="grid_columns" type="number" min="1" max="10" value="4" onclick="make_grid()"
+                            class="rounded-lg shadow-md bg-gray-800 text-white mt-3 mx-2 py-5 px-1  max-w-md">
+                    </div>
+                </div>
+
+                <!-- Preview grid (is filled by js) -->
+                <div id="grid_preview" class="grid grid-cols-4 gap-1 w-full h-64 overflow-y-scroll">
+                </div>
+
+                <!-- Apply button sectoin -->
+                <div class="flex flex-row justify-center items-center mt-4 w-full">
+                    <button id="grid_apply_button"
+                        onclick="close_modal('grid_customization_modal'); show_gallery('grid');"
+                        class="rounded-lg shadow-md bg-gray-800 text-white mt-3 mx-2 py-5 px-2  max-w-md">
+                        Apply
+                        <i class="fas fa-th-large ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Gallery Display -->
+    <div id="main_container" class="w-full h-full">
+        <!-- Nav -->
+        <nav class="flex flex-row justify-between items-center bg-black p-2 mt-2 mb-4 mx-2 border-b border-blue-50">
+            <!-- Go home -->
+            <div class="flex flex-row justify-center items-center">
+                <a href="/">
+                    <i class="fas fa-home text-white text-2xl font-bold mx-2"></i>
+                </a>
+            </div>
+
+            <!-- Channel name -->
+            <div class="flex flex-row justify-center items-center">
+                <p class="text-white text-2xl font-bold mx-2">{{channel_name}}</p>
+            </div>
+
+
+            <!-- Open config -->
+            <div class="flex flex-row justify-center items-center">
+                <button onclick="open_modal('gallery_mode_modal')"
+                    class="text-white text-2xl font-bold mx-2">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+        </nav>
+
+        <div id="gallery" class="w-full h-full"></div>
 
     </div>
 
-    <!-- Modal Container -->
-    <div id="Modal" class="hidden fixed inset-0 p-2 bg-black bg-opacity-50 flex items-center justify-center">
+    <!-- Focused image modal -->
+    <div id="image_modal" class="hidden fixed inset-0 p-2 bg-black bg-opacity-50 flex items-center justify-center">
         <div class="h-[92%] w-auto mx-auto">
-            <img id="modalImage" class="rounded-lg max-h-full h-fit w-fit" alt="modal-image" src="" />
+            <img id="modal_image" class="rounded-lg max-h-full h-fit w-fit" alt="modal-image" src="" />
             <!-- Text for image name (should be on top center)-->
             <div class="absolute top-0 left-0 right-0 flex justify-center items-center z-10">
-                <p id="modalImageName" class="text-white text-1xl"></p>
+                <p id="modal_image_name" class="text-white text-1xl"></p>
             </div>
 
         </div>
     </div>
 
-    <script>
-        const modal = document.getElementById('Modal');
 
-        function showModal(url, name) {
-            const modalImage = document.getElementById('modalImage');
-            modalImage.src = url;
-            modal.classList.remove('hidden');
-
-            const modalImageName = document.getElementById('modalImageName');
-            modalImageName.innerHTML = name;
-
-            document.body.classList.add('modal-open');
-
-            modal.onclick = function () {
-                modal.classList.add('hidden');
-                document.body.classList.remove('modal-open');
-            };
-        }
-
-        for (const image of document.getElementsByTagName('img')) {
-            image.onclick = function () {
-                showModal(image.src, image.name);
-            };
-        }
-    </script>
 
 </body>
 
