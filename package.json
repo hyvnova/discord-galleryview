@@ -1,5 +1,9 @@
 {
   "devDependencies": {
     "tailwindcss": "^3.3.3"
+  },
+
+  "scripts": {
+    "run" : "py server.py & npx tailwindcss -i ./static/src/input.css -o ./static/css/output.css --watch"
   }
 }

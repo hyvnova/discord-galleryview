@@ -14,7 +14,7 @@ Routes:
     - /gallery/<gallery_id> (GET): Get the gallery page.
 """
 
-from typing import List, Tuple
+from typing import Dict, List, Tuple
 from flask import Flask, request, jsonify, url_for, render_template
 import json, os
 from flask_fontawesome import FontAwesome
@@ -81,7 +81,7 @@ def create_gallery_page(channel_id: str, channel_name: str, images: List[Tuple])
 
     # save data
     with open("./views.json", "w") as f:
-        json.dump(data, f, indent=4)
+        json.dump(data, f, indent=2)
 
     # return gallery url
     return jsonify({"gallery_url": HOST + url_for("gallery", gallery_id=channel_id)})
@@ -126,8 +126,6 @@ def create_gallery_scrapping():
     channel_id = req_data.get("channel_id")
     amount = req_data.get("amount")
     authorization = req_data.get("authorization")
-
-    print(req_data)
 
     if not all([channel_id, amount, authorization]):
         return (

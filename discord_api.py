@@ -3,11 +3,7 @@ from typing import List, Tuple
 import discord
 import requests, time
 
-# API authorization
-AUTHORIZATION = "NTM4ODk1NTU1ODU4NzkyNDUy.GLppx7.bnEBLaTdXQWrG5MYJSA2342rs1IDljfrWN556M"
-
-
-def get_channel_images(authorization: str, channel_id: str, amount: int = 100) -> List[Tuple] | None:
+def get_channel_images(authorization: str, channel_id: str, amount: int = 100) -> List[str] | None:
     # headers for API requests
     HEADERS = {
         "Authorization": authorization,
@@ -15,7 +11,7 @@ def get_channel_images(authorization: str, channel_id: str, amount: int = 100) -
         "Accept": "application/json",
     }
 
-    messages: List[discord.MessageType] = []
+    images = []
 
     last_id = None
 
@@ -37,23 +33,26 @@ def get_channel_images(authorization: str, channel_id: str, amount: int = 100) -
 
         data = response.json()
 
-        messages.extend(data)
+        for message in filter(lambda m: m.get("attachments"), data):
+            for attachment in message["attachments"]:
 
-        print(f"Messages retrieved: {len(messages)}/{amount}        ", end="\r")
+                url = attachment["url"].removeprefix(f"https://cdn.discordapp.com/attachments/{channel_id}/")
 
-        if len(data) < 100 or len(messages) >= amount:
+                images.append(url)
+
+                if len(images) >= amount:
+                    break
+            
+            if len(images) >= amount:
+                break
+
+        print(f"Images retrieved: {len(images)}/{amount}        ", end="\r")
+
+        if len(data) < 100:
             break
 
         last_id = data[-1]["id"]
         time.sleep(randint(15, 30) / 100)
-
-    print("\n[ + ] Messages retrieved!")
-
-    # get images
-    images = []
-    for message in filter(lambda m: m.get("attachments"), messages):
-        for attachment in message["attachments"]:
-            images.append((attachment["url"], attachment["filename"].split(".")[0]))
 
     return images
 
