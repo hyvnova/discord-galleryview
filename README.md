@@ -1,4 +1,4 @@
-# Discord GalleryView (1.0)
+# Discord GalleryView (2.0)
 
 Discord Bot and tool for creating a "gallery view" with the media in a specified discord channel.
 
