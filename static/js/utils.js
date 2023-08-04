@@ -1,6 +1,7 @@
 const body = document.body; // shortcut to body element
 
-const channel_id = window.location.pathname.split("/")[3];
+// get channel id from url can be /gallery/<channel_id> or /gallery/<channel_id>/
+const channel_id = window.location.pathname.split("/")[2];
 
 const images = JSON.parse(
 	document.getElementsByTagName("images-json")[0].innerHTML

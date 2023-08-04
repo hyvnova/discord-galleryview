@@ -21,10 +21,10 @@ You could use [GalleryView](https://discordgalleryview.ezsnova.repl.co/) to get 
 
 And have some extra functionality as:
 ![GalleryView Zoom](github_images/gallery_zoom.png)
+![GalleryView Modes](github_images/gallery_modes.png)
 
-You can check the gallery used in this example [here](https://discordgalleryview.ezsnova.repl.co/gallery/967180550022496336)
 
 ## Get GalleryView
 
-1. [Discord bot](https://discord.com/api/oauth2/authorize?client_id=1136039549894676490&permissions=124928&scope=bot)
+1. [Discord bot](https://discord.com/api/oauth2/authorize?client_id=1136039549894676490&permissions=124928&scope=bot) (recommended)
 2. [Web app](https://discordgalleryview.ezsnova.repl.co/)
