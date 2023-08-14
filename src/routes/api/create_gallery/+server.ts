@@ -1,4 +1,4 @@
-import { get_db, write_db } from "$lib/server/db"
+import { gallery_exists, add_gallery } from "$lib/server/db"
 import { json, type RequestHandler } from "@sveltejs/kit"
 
 /*
@@ -37,22 +37,15 @@ export const POST: RequestHandler = async ({ request }) => {
     }
 
 
-    let db = await get_db();
-
     //  If gallery already exists and overwrite is false, return error
-    if (db[channel_id] && !overwrite) {
+    if (await gallery_exists(channel_id) && !overwrite) {
         return json({
             error: "Gallery already exists. Use overwrite=true to overwrite existing gallery"
         }, {status: 400})
 
     }
-    
-    db[channel_id] = {
-        channel_name: channel_name,
-        images: images
-    }
-
-    await write_db(db);
+   
+    await add_gallery(channel_id, {channel_name, images});
 
     let host = request.url.split("/api")[0];
 
