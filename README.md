@@ -1,38 +1,45 @@
-# create-svelte
+# Discord GalleryView (3.0)
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+Discord Bot and tool for creating a "gallery view" with the media in a specified discord channel.
 
-## Creating a project
+## Quick Start
 
-If you're seeing this, you've probably already done this step. Congrats!
+The easiest way to get started with [GalleryView](https://discordgalleryview.ezsnova.repl.co/) is to use the discord bot.
+You can **invite the bot to your server** [here](https://discord.com/api/oauth2/authorize?client_id=1136039549894676490&permissions=124928&scope=bot)
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+Once the bot is in your server, you can use slash commands to either create or get a gallery view.
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+![GalleryView Bot commands](github_images/commands.png)
 
-## Developing
+## Showcase
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Image you are on a great wallpaper server as [✨ • Wallpaper World • ✨](https://discord.gg/wallpaper) and you want to view all the wallpapers in a channel a bit more nicely.
+![Discord chat wallpapers](github_images/chat_wallpapers.png)
 
-```bash
-npm run dev
+You could use [GalleryView](https://discordgalleryview.ezsnova.repl.co/) to get a nice view like this:
+![GalleryView from wallpapers](github_images/wallpapers_gallery.png)
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+And have some extra functionality as:
+![GalleryView Zoom](github_images/gallery_zoom.png)
 
-## Building
+## Modes
+### GalleryView has (currently) 3 modes:
+1. **Grid**
+2. **Carousel**
+3. **List**
 
-To create a production version of your app:
+![GalleryView Modes](github_images/gallery_modes.png)
 
-```bash
-npm run build
-```
+### Each mode provides a bit of customization to make the gallery view your own.
 
-You can preview the production build with `npm run preview`.
+![Customization Example](github_images/customization.png)
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+
+# Modes Showcase
+![Carousel Showcase](github_images/carousel_showcase.png)
+![List Showcase](github_images/list_showcase.png)
+![Grid Showcase](github_images/grid_showcase.png)
+
+# Get GalleryView
+1. [Discord bot](https://discord.com/api/oauth2/authorize?client_id=1136039549894676490&permissions=124928&scope=bot) (recommended)
+2. [Web app](https://discordgalleryview.ezsnova.repl.co/)
