@@ -56,16 +56,18 @@
 			/>
 
 			<!-- Preview carousel -->
-			{#if browser}
-			<Carousel bind:this={carousel} particlesToShow={$carousel_particles}>
-				{#each images_data as image}
-					<!-- Images should be completely visible within the screen without scrolling while mantaining aspect ratio -->
-					<div class="container mx-auto w-auto max-h-[80vh]">
-						<Image {image} style="max-height: 80vh; max-width: 100%; object-fit: contain;" />
-					</div>
-				{/each}
-			</Carousel>
-			{/if}
+			{#key $carousel_particles}
+				{#if browser}
+					<Carousel bind:this={carousel} particlesToShow={$carousel_particles}>
+						{#each images_data as image}
+							<!-- Images should be completely visible within the screen without scrolling while mantaining aspect ratio -->
+							<div class="container mx-auto w-auto max-h-[80vh]">
+								<Image {image} style="max-height: 80vh; max-width: 100%; object-fit: contain;" />
+							</div>
+						{/each}
+					</Carousel>
+				{/if}
+			{/key}
 		</div>
 	</div>
 </Modal>

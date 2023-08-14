@@ -27,7 +27,7 @@
 					<input
 						name="grid_columns"
 						type="number"
-						min="1"
+						min="3"
 						max="10"
 						bind:value={$grid_columns}
 						class="rounded-lg shadow-md bg-gray-800 text-white mt-3 mx-2 py-5 px-1 max-w-md"

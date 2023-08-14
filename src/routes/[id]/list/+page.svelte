@@ -14,7 +14,7 @@
 <div class="container mt-2">
 	<div class="flex flex-col justify-center items-center w-10/12 h-full mx-auto">
 		{#each images_data as image}
-			<div class="container md:p-1 max-h-96 self-center mx-auto my-8">
+			<div class="container md:p-1 self-center mx-auto my-8" style="max-height: {$image_height}vh">
 				<Image {image} style="max-height: {$image_height}vh; max-width: 100%; mx-auto" />
 			</div>
 		{/each}

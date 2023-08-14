@@ -3,6 +3,8 @@
 
 	import { toast } from '@zerodevx/svelte-toast';
 
+	import { assets } from '$app/paths';
+
 	export let form: ActionData;
 
 	$: if (form) {
@@ -29,7 +31,7 @@
 			href="https://discord.com/api/oauth2/authorize?client_id=1136039549894676490&permissions=124928&scope=bot"
 			class=" rounded-lg shadow-md text-white"
 		>
-			<img src="src\lib\icons\discord.png" alt="Discord logo" class="inline-block h-10 w-10 mr-2" />
+			<img src={assets + '/discord.png'} alt="Discord logo" class="inline-block h-10 w-10 mr-2" />
 		</a>
 	</div>
 

@@ -15,7 +15,7 @@
 	style="grid-template-columns: repeat({$grid_columns}, 1fr);"
 >
 	{#each images_data as image}
-		<div class="container md:p-1 max-h-96 self-center mx-auto my-2">
+		<div class="container md:p-1 self-center mx-auto my-2">
 			<Image {image} class_name="block h-full w-full rounded-lg object-cover object-center" />
 		</div>
 	{/each}

@@ -23,8 +23,6 @@ export const actions: Actions = {
                 error: 'No gallery with this id exists',
             }
         } else {
-            // redirect to the gallery /<id>/list
-            console.log("RED")
             throw redirect(302, `/${channel_id}/list`);
         }
     },
