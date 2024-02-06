@@ -1,5 +1,5 @@
 import type { LayoutServerLoad } from './$types';
-import {get_db} from '$lib/server/db';
+import {get_gallery} from '$lib/server/db';
 
 export const load: LayoutServerLoad = async ({ params }) => {
     let channel_id = params.id;
@@ -11,13 +11,15 @@ export const load: LayoutServerLoad = async ({ params }) => {
 
     // load raw image data from database at: src/lib/server/db.json
     try {
-        const db = await get_db();
 
-        let channel_data: {
-            channel_name: string;
-            images: string[]; // array of image ids = <image_id>/<image_name>
-        } = db[channel_id];
+        let channel_data = await get_gallery(channel_id);
 
+        if (!channel_data) {
+            return {
+                images_data: [],
+                channel_name: 'Gallery not found',
+            };
+        }
 
         // convert image ids to discord urls
         let preffix = `https://cdn.discordapp.com/attachments/${channel_id}/`;

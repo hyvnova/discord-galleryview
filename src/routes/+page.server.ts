@@ -1,6 +1,6 @@
 
 import type { Actions } from './$types';
-import { get_db, write_db } from '$lib/server/db';
+import { add_gallery, gallery_exists, get_db, write_db } from '$lib/server/db';
 import { redirect } from '@sveltejs/kit';
 import get_channel from '$lib/server/scrap_messages';
 
@@ -18,7 +18,8 @@ export const actions: Actions = {
         }
         // check if a gallery with this id exists
         const db = await get_db();
-        if (!db[channel_id]) {
+
+        if (await gallery_exists(channel_id)) {
             return {
                 error: 'No gallery with this id exists',
             }
@@ -52,7 +53,7 @@ export const actions: Actions = {
         // check if a gallery with this id exists
         const db = await get_db();
 
-        if (db[channel_id]) {
+        if (await gallery_exists(channel_id)) {
             return {
                 error: 'A gallery with this id already exists. To overwrite it, use bot commands.',
             }
@@ -66,16 +67,18 @@ export const actions: Actions = {
                 error: result.error,
             }
         }
+        if (!result.images || !result.channel_name) {
+            return {
+                error: 'Failed to get images or channel name',
+            }
+        }
 
         // Save the images and channel name
-        db[channel_id] = {
-            images: result.images || [],
-            channel_name: result.channel_name || 'Unknown',
-        };
-
-        // Save the db
-        await write_db(db);
-
+        await add_gallery({
+            channel_id,
+            channel_name: result.channel_name,
+            images: result.images,
+        }); 
         // redirect to the gallery /<id>/list
         throw redirect(302, `/${channel_id}/list`);
     }
